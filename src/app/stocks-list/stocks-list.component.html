@@ -1,0 +1,68 @@
+
+<section id="hero" class="d-flex align-items-center">
+
+  <div class="container">
+
+    <div class="row" style="height: 600px; position: relative">
+
+
+    <kendo-grid [data]="StocksList_gridData"
+                [kendoGridBinding]="StocksList_gridData"
+                [filterable]="true"
+                [pageable]="true"
+                [pageSize]="20"
+                [sortable]="true"
+    >
+      <kendo-grid-column title="Actions" [width]="100">
+        <ng-template kendoGridCellTemplate let-rowIndex="rowIndex">
+          <button class="k-button" (click)="goToManage({index : rowIndex})">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+              <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z"/>
+              <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z"/>
+            </svg>
+          </button>
+        </ng-template>
+      </kendo-grid-column>
+      <!--<kendo-grid-column field="id" title="id" display="false"> </kendo-grid-column>-->
+      <kendo-grid-column field="stock" title="stock"> </kendo-grid-column>
+      <kendo-grid-column field="industry" title="industry"> </kendo-grid-column>
+      <kendo-grid-column field="sector" title="sector"> </kendo-grid-column>
+      <kendo-grid-column field="currency_code" title="currency_code"> </kendo-grid-column>
+
+    </kendo-grid>
+
+  </div>
+
+
+  <div class="row" style="height: 600px; position: relative; margin-top: 190px">
+
+
+    <kendo-grid [data]="StockDetails_gridData"
+                [kendoGridBinding]="StockDetails_gridData"
+                [filterable]="true"
+                [pageable]="true"
+                [pageSize]="20"
+                [sortable]="true"
+    >
+<!--      <kendo-grid-column title="stock">{{StockName}}</kendo-grid-column>-->
+      <kendo-grid-column field="stock_id" title="stock Id"></kendo-grid-column>
+      <kendo-grid-column field="date" title="date"> </kendo-grid-column>
+      <kendo-grid-column field="value" title="value"> </kendo-grid-column>
+
+    </kendo-grid>
+
+
+
+  </div>
+
+  <button *ngIf="ActivateExportToJson" type="button" class="btn btn-primary float-right m-2" style="float: right" data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop" (click)="ExportToJsonClick()" data-bs-backdrop="static" data-bs-keyboard="false">
+    Export To Json
+  </button>
+
+</div>
+  </section>
+
+
+
+
