@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {StocksService} from "../Services/stocks.service";
 import {RowArgs} from "@progress/kendo-angular-grid";
 import {HttpClient} from "@angular/common/http";
+import {map, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-stocks-list',
@@ -38,12 +39,23 @@ export class StocksListComponent implements OnInit {
   ExportToJsonClick(){
 
     const data = this.StockDetails_gridData;
+    console.log(data);
     const blob = new Blob([JSON.stringify(data)], {type: 'text/plain'});
+    console.log(blob);
     const tmpFile = new File([blob], 'stock_data.json');
-
+    console.log(tmpFile);
 // now you can pass this tmp file to a form with your pdf
-    const form = new FormData();
-    form.append('file', tmpFile);
+//     const form = new FormData();
+    // form.append('file', tmpFile);
+
+    let filename = data.id + '.Json';
+    // const file = new blob([data], {type: "text/plain"});
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(tmpFile)
+    link.download = filename;
+    link.click();
+    link.remove();
   }
 
   refreshStockList(){
@@ -59,16 +71,18 @@ export class StocksListComponent implements OnInit {
 
     const StockId = detail.id;
     console.log( "ID : " + StockId);
-    this.StocksService.getStockDetail(StockId).subscribe(response=>{
+    this.StocksService.getStockDetail(StockId).pipe(
+    ).subscribe(response=>{
       this.StockName = detail.stock;
       console.log(this.StockName);
       this.StockDetails_gridData = response;
+
+      this.StockDetails_gridData.forEach((data:any)=>{
+        data.id=this.StockName;
+      })
       console.log(this.StockDetails_gridData);
     });
 
-    // console.log(this.StockDetailsList);
-    // this.StockDetails_gridData = this.StockDetailsList;
-    // console.log(this.StockDetails_gridData);
     this.ActivateExportToJson = true;
   }
 

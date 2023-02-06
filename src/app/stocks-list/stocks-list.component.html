@@ -1,19 +1,17 @@
 
-<section id="hero" class="d-flex align-items-center">
-
   <div class="container">
 
-    <div class="row" style="height: 600px; position: relative">
+    <div class="row" style="position: relative; padding-bottom: 50px">
 
 
     <kendo-grid [data]="StocksList_gridData"
                 [kendoGridBinding]="StocksList_gridData"
                 [filterable]="true"
                 [pageable]="true"
-                [pageSize]="20"
+                [pageSize]="10"
                 [sortable]="true"
     >
-      <kendo-grid-column title="Actions" [width]="100">
+      <kendo-grid-column title="Actions" [width]="70">
         <ng-template kendoGridCellTemplate let-rowIndex="rowIndex">
           <button class="k-button" (click)="goToManage({index : rowIndex})">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
@@ -34,18 +32,18 @@
   </div>
 
 
-  <div class="row" style="height: 600px; position: relative; margin-top: 190px">
+  <div class="row" style="position: relative;">
 
+    <h4 class="d-flex justify-content-center">{{StockName}}</h4>
 
     <kendo-grid [data]="StockDetails_gridData"
                 [kendoGridBinding]="StockDetails_gridData"
                 [filterable]="true"
                 [pageable]="true"
-                [pageSize]="20"
+                [pageSize]="10"
                 [sortable]="true"
     >
-<!--      <kendo-grid-column title="stock">{{StockName}}</kendo-grid-column>-->
-      <kendo-grid-column field="stock_id" title="stock Id"></kendo-grid-column>
+ <kendo-grid-column field="id" title="stock"></kendo-grid-column>
       <kendo-grid-column field="date" title="date"> </kendo-grid-column>
       <kendo-grid-column field="value" title="value"> </kendo-grid-column>
 
@@ -55,13 +53,15 @@
 
   </div>
 
-  <button *ngIf="ActivateExportToJson" type="button" class="btn btn-primary float-right m-2" style="float: right" data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop" (click)="ExportToJsonClick()" data-bs-backdrop="static" data-bs-keyboard="false">
-    Export To Json
-  </button>
+    <div class="row">
+
+      <button *ngIf="ActivateExportToJson" type="button" class="btn btn-primary float-right m-2" style="float: right" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop" (click)="ExportToJsonClick()" data-bs-backdrop="static" data-bs-keyboard="false">
+      Export To Json
+      </button>
+    </div>
 
 </div>
-  </section>
 
 
 
